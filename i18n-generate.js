@@ -45,14 +45,14 @@ if (!dir) console.error('no directory supplied. use -d');
 
 // TODO - test if the outputDirectory exists
 
-glob(`${dir}/**/*.+(js|html)`, {}, (er, files) => {
+glob(`${dir}/**/*.+(tsx|js|html)`, {}, (er, files) => {
   const value = _.compose(
     _.compact,
     _.uniq,
     _.flatten,
     _.map(function(file) {
       const text = fs.readFileSync(file, 'utf8');
-      const findTranslations = new RegExp(`(\\W${functionName}\\()(\'|\")(.*?)(\\))`, "g"); // finds all text wrapped in __('') or whatever you set it to
+      const findTranslations = new RegExp(`\\W${functionName}\\(((\\"(.+)\\")|(\\'(.+)\\'))\\)`, "g"); // finds all text wrapped in __('') or whatever you set it to
       const result = text.match(findTranslations);
       if (result) {
         // strip away '__(' and ')'
