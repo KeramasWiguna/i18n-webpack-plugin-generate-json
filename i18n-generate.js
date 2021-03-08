@@ -77,7 +77,7 @@ glob(`${dir}/**/*.+(tsx|js|html)`, {}, (er, files) => {
     let newObject = Object.assign({},
       localeText,
       _.mapValues(function(str) { 
-        if(language === 'en'){
+        if(language == 'en'){
           return str;
         } else {
           return `${prefix}${str}`;
