@@ -76,7 +76,13 @@ glob(`${dir}/**/*.+(tsx|js|html)`, {}, (er, files) => {
     console.log(`\n\n${language}: new translations found\n`, newTranslations);
     let newObject = Object.assign({},
       localeText,
-      _.mapValues(function(str) { return `${prefix}${str}` })(newTranslations)
+      _.mapValues(function(str) { 
+        if(language === 'en'){
+          return str;
+        } else {
+          return `${prefix}${str}`;
+        }
+      })(newTranslations)
     );
     newObject = sortObject(newObject);
     fs.writeFileSync(
